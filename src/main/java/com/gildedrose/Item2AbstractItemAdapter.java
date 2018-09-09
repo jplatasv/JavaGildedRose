@@ -11,6 +11,8 @@ public abstract class Item2AbstractItemAdapter
 				return new AgedBrieItem(item.sellIn, item.quality);
 			case BackstagePassItem.NAME:
 				return new BackstagePassItem(item.sellIn, item.quality);
+			case ConjuredItem.NAME:
+				return new ConjuredItem(item.sellIn, item.quality);
 			default:
 				return new StandardItem(item.name, item.sellIn, item.quality);			
 		}	

@@ -247,4 +247,48 @@ public class GildedRoseTest
         assertEquals(3, app.items[0].sellIn);
         assertEquals(50, app.items[0].quality);
     }
+    
+    @Test
+    public void conjuredCake_QualityElapses1DayTest() {
+        Item[] items = new Item[] { new Item("Conjured Mana Cake", 2, 10) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        
+        assertEquals("Conjured Mana Cake", app.items[0].name);
+        assertEquals(1, app.items[0].sellIn);
+        assertEquals(8, app.items[0].quality);
+    }
+    
+    @Test
+    public void conjuredCake_SellinExpiresTest() {
+        Item[] items = new Item[] { new Item("Conjured Mana Cake", 1, 10) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        
+        assertEquals("Conjured Mana Cake", app.items[0].name);
+        assertEquals(0, app.items[0].sellIn);
+        assertEquals(8, app.items[0].quality);
+    }
+    
+    @Test
+    public void conjuredCake_SellinIsExpiredTest() {
+        Item[] items = new Item[] { new Item("Conjured Mana Cake", 0, 10) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        
+        assertEquals("Conjured Mana Cake", app.items[0].name);
+        assertEquals(-1, app.items[0].sellIn);
+        assertEquals(6, app.items[0].quality);
+    }
+    
+    @Test
+    public void conjuredCake_QualityNeverGetsNegativeTest() {
+        Item[] items = new Item[] { new Item("Conjured Mana Cake", 0, 1) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        
+        assertEquals("Conjured Mana Cake", app.items[0].name);
+        assertEquals(-1, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+    }
 }
